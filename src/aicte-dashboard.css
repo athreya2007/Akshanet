@@ -1,0 +1,303 @@
+/* AICTE Regulatory Dashboard Styles */
+.aicte-app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Top Navbar */
+.aicte-top-navbar {
+  height: 64px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dbe2ea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.aicte-brand-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.aicte-council-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aicte-council-icon-wrap {
+  width: 36px;
+  height: 36px;
+  background-color: #0b2545;
+  color: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aicte-council-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #0b2545;
+  line-height: 1.2;
+}
+
+.aicte-council-sub {
+  font-size: 0.74rem;
+  color: #64748b;
+}
+
+.aicte-user-pill-btn {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 6px 4px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0b2545;
+  cursor: pointer;
+}
+
+.aicte-user-avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #0b2545;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Layout */
+.aicte-main-container {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar */
+.aicte-sidebar {
+  width: 240px;
+  background-color: #0b2545;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.aicte-sidebar-menu {
+  list-style: none;
+  padding: 14px 0;
+  margin: 0;
+}
+
+.aicte-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+.aicte-sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.aicte-sidebar-item.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  border-left: 4px solid #ffffff;
+}
+
+/* Content Viewport */
+.aicte-content-viewport {
+  flex: 1;
+  padding: 24px 32px 40px 32px;
+  overflow-y: auto;
+}
+
+.aicte-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.aicte-page-heading {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #0b2545;
+}
+
+.aicte-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Filter Bar */
+.aicte-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.aicte-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aicte-pill-select {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Metric Cards */
+.aicte-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .aicte-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .aicte-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aicte-metric-card {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.aicte-metric-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b2545;
+  flex-shrink: 0;
+}
+
+.aicte-metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+.aicte-metric-label {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+/* Data Table Card */
+.aicte-table-card {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  margin-bottom: 24px;
+}
+
+.aicte-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.aicte-table-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0b2545;
+}
+
+.aicte-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  text-align: left;
+}
+
+.aicte-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.aicte-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.aicte-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.aicte-badge-pill {
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0b2545;
+  display: inline-block;
+}

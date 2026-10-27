@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saveetha Engineering College — Academic Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #eef2f7;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navbar */
+    .top-navbar {
+      height: 64px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #dbe2ea;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .user-pill-btn {
+      background-color: #ffd600;
+      border: none;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 6px 4px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #111827;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(255, 214, 0, 0.35);
+      transition: transform 0.15s ease;
+    }
+
+    .user-pill-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .user-avatar-circle {
+      width: 30px;
+      height: 30px;
+      background-color: #111827;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffd600;
+    }
+
+    /* User Menu Dropdown */
+    .user-dropdown-card {
+      position: absolute;
+      top: 68px;
+      min-width: 260px;
+      width: max-content;
+      max-width: 320px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e2e8f0;
+      z-index: 100;
+      overflow: hidden;
+      display: block;
+    }
+
+    .dropdown-list {
+      list-style: none;
+      padding: 6px 0;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 18px;
+      font-size: 0.88rem;
+      color: #374151;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f3f4f6;
+    }
+
+    .dropdown-item.highlighted {
+      background-color: #ffeb3b;
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .dropdown-item.highlighted:hover {
+      background-color: #fde047;
+    }
+
+    .dropdown-item.danger:hover {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Main Container */
+    .main-container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 236px;
+      background-color: #0b2545;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 20px;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.18s ease;
+      user-select: none;
+    }
+
+    .sidebar-item:hover {
+      background-color: #123762;
+    }
+
+    .sidebar-item.active {
+      background-color: #ffffff;
+      color: #0b2545;
+      font-weight: 700;
+    }
+
+    .sidebar-item.active svg {
+      stroke: #0b2545;
+      fill: none;
+    }
+
+    /* Content Area */
+    .content-viewport {
+      flex: 1;
+      padding: 24px 32px 40px 32px;
+      position: relative;
+    }
+
+    .content-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .page-heading {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .btn-upload {
+      background-color: #0b2545;
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      padding: 9px 22px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(11, 37, 69, 0.3);
+      transition: all 0.18s ease;
+    }
+
+    .btn-upload:hover {
+      background-color: #133a6b;
+      transform: translateY(-1px);
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .year-pill-btn {
+      background-color: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 9999px;
+      padding: 7px 20px;
+      font-size: 1rem;
+      color: #64748b;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Cards Layout */
+    .cards-workspace {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .metrics-column {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1100px) {
+      .metrics-column {
+        grid-template-columns: 1fr;
+      }
+      .cards-workspace {
+        flex-direction: column;
+      }
+      .activity-panel {
+        width: 100% !important;
+      }
+    }
+
+    .metric-card-split {
+      background-color: #ffffff;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      display: flex;
+      height: 116px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .metric-card-split:hover {
+      transform: translateY(-2px);
+    }
+
+    .card-icon-half {
+      width: 44%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #eef2f7;
+    }
+
+    .card-info-half {
+      width: 56%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      text-align: center;
+    }
+
+    .metric-counter {
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #374151;
+      line-height: 1.2;
+    }
+
+    .metric-title {
+      font-size: 0.88rem;
+      color: #4b5563;
+      margin-top: 4px;
+    }
+
+    /* Activity & Data Health Panel */
+    .activity-panel {
+      width: 330px;
+      background-color: #ffffff;
+      border: 1px solid #dbe2ea;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      padding: 16px 18px;
+      flex-shrink: 0;
+    }
+
+    .activity-heading {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0b2545;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    .side-tabs-segmented {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 3px;
+      margin-bottom: 14px;
+      gap: 3px;
+    }
+
+    .side-tab-toggle-btn {
+      flex: 1;
+      padding: 6px 8px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .side-tab-toggle-btn.active {
+      background: #ffffff;
+      color: #0b2545;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* Issue notification cards */
+    .issue-notification-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+
+    .issue-card-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #dbe2ea;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .issue-card-item:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .issue-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .issue-card-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .issue-type-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background-color: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .issue-card-desc {
+      font-size: 0.77rem;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    .issue-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+      font-size: 0.73rem;
+      color: #64748b;
+    }
+
+    .issue-action-btn {
+      padding: 3px 8px;
+      background: #0b2545;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .issue-action-btn:hover {
+      background: #1a365d;
+    }
+
+    .activity-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .activity-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .activity-icon-wrap {
+      margin-top: 2px;
+      color: #4b5563;
+      flex-shrink: 0;
+    }
+
+    .activity-text {
+      font-size: 0.86rem;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .verify-link-btn {
+      background: none;
+      border: none;
+      color: #1d4ed8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 8px;
+      text-decoration: underline;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 540px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      background: #0b2545;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .dropzone {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      background: #f8fafc;
+      cursor: pointer;
+    }
+
+    .modal-footer {
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary-action {
+      background: #0b2545;
+      border: none;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 8px 22px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="brand-container">
+      <!-- Logo & university branding removed per user request -->
+    </div>
+
+    <div style="position: relative;">
+      <button class="user-pill-btn" id="userBtn" onclick="toggleUserMenu()">
+        <span>Saveetha Engineering College</span>
+        <div class="user-avatar-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+      </button>
+
+      <!-- User Dropdown Menu (Open as shown in reference) -->
+      <div class="user-dropdown-card" id="userDropdown">
+        <ul class="dropdown-list">
+          <li class="dropdown-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Institution APAAR</span>
+          </li>
+          <li class="dropdown-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><line x1="3" y1="21" x2="21" y2="21"></line><line x1="3" y1="10" x2="21" y2="10"></line><polygon points="12 2 2 7 22 7 12 2"></polygon><line x1="5" y1="10" x2="5" y2="21"></line><line x1="9" y1="10" x2="9" y2="21"></line><line x1="15" y1="10" x2="15" y2="21"></line><line x1="19" y1="10" x2="19" y2="21"></line></svg>
+            <span>Institution Details</span>
+          </li>
+          <li class="dropdown-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+            <span>DigiLocker Accounts</span>
+          </li>
+          <li class="dropdown-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>User Management</span>
+          </li>
+          <li class="dropdown-item highlighted">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+            <span>Utilities</span>
+          </li>
+          <li class="dropdown-item danger" onclick="alert('Logged out safely.')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span style="color: #dc2626;">Logout</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Navy Blue Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Dashboard</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Records</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Student Access</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+          <span>Templates</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Settings</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+          <span>Certificate Approval</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><line x1="14" y1="14" x2="14" y2="14.01"></line><line x1="17" y1="14" x2="17" y2="17"></line><line x1="20" y1="14" x2="20" y2="20"></line></svg>
+          <span>Certificate Verification</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="21" x2="21" y2="21"></line><line x1="3" y1="10" x2="21" y2="10"></line><polygon points="12 2 2 7 22 7 12 2"></polygon><line x1="5" y1="10" x2="5" y2="21"></line><line x1="9" y1="10" x2="9" y2="21"></line><line x1="15" y1="10" x2="15" y2="21"></line><line x1="19" y1="10" x2="19" y2="21"></line></svg>
+          <span>Academic Bank of Credits</span>
+        </li>
+        <li class="sidebar-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+          <span>Support</span>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-viewport">
+      <!-- Content Header -->
+      <div class="content-header">
+        <h1 class="page-heading">Dashboard</h1>
+        <div>
+          <button class="btn-upload" onclick="openUploadModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Upload Records</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Bar & Student Overview Banner -->
+      <div class="filter-bar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <button class="year-pill-btn" onclick="alert('Filtering academic session year: 2024-2025')">
+          <span>Year</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </button>
+
+        <!-- Total Students Overview Banner -->
+        <div style="display: flex; align-items: center; gap: 12px; background: #ffffff; border: 1px solid #dbe2ea; border-radius: 9999px; padding: 6px 18px 6px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+          <div style="display: flex; align-items: center; gap: 6px; color: #475569; font-size: 0.86rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span>Total Enrolled Students:</span>
+          </div>
+          <span style="font-size: 1.05rem; font-weight: 700; color: #1e293b;">4,280</span>
+          <span style="color: #cbd5e1;">|</span>
+          <div style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.86rem; color: #475569;" onclick="switchSideTab('issues')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <span>Data Issues:</span>
+            <span style="font-weight: 700; color: #1e293b;" id="bannerIssuesCount">43</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards & Activity Grid -->
+      <div class="cards-workspace">
+        <div class="metrics-column">
+          <!-- Card 1: Total Awards Lodged -->
+          <div class="metric-card-split">
+            <div class="card-icon-half">
+              <!-- Medal/Ribbon icon -->
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="1.8">
+                <circle cx="12" cy="8" r="6"></circle>
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+              </svg>
+            </div>
+            <div class="card-info-half">
+              <div class="metric-counter" id="awardsLodgedCount">7</div>
+              <div class="metric-title">Total Awards Lodged</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Awards Fetched -->
+          <div class="metric-card-split">
+            <div class="card-icon-half">
+              <!-- Books icon -->
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="1.8">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+            <div class="card-info-half">
+              <div class="metric-counter" id="awardsFetchedCount">3</div>
+              <div class="metric-title">Awards Fetched</div>
+            </div>
+          </div>
+
+          <!-- Card 5: Total Degree -->
+          <div class="metric-card-split">
+            <div class="card-icon-half">
+              <!-- Graduation cap icon -->
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="1.8">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <div class="card-info-half">
+              <div class="metric-counter" id="degreeCount">5</div>
+              <div class="metric-title">Total Degree</div>
+            </div>
+          </div>
+
+          <!-- Card 6: Total Marksheet -->
+          <div class="metric-card-split">
+            <div class="card-icon-half">
+              <!-- Exam / Marksheet icon with E=% lines -->
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="1.8">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <line x1="7" y1="8" x2="17" y2="8"></line>
+                <line x1="7" y1="12" x2="12" y2="12"></line>
+                <line x1="7" y1="16" x2="17" y2="16"></line>
+              </svg>
+            </div>
+            <div class="card-info-half">
+              <div class="metric-counter" id="marksheetCount">2</div>
+              <div class="metric-title">Total Marksheet</div>
+            </div>
+          </div>
+
+          <!-- Card 7: Total Diploma -->
+          <div class="metric-card-split">
+            <div class="card-icon-half">
+              <!-- Scroll / Diploma icon -->
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="1.8">
+                <path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"></path>
+                <path d="M19 17V5a2 2 0 0 0-2-2H4"></path>
+              </svg>
+            </div>
+            <div class="card-info-half">
+              <div class="metric-counter" id="diplomaCount">1</div>
+              <div class="metric-title">Total Diploma</div>
+            </div>
+          </div>
+
+          <!-- Card 8: Total Attempts -->
+          <div class="metric-card-split">
+            <div class="card-icon-half">
+              <!-- Touch Pointer hand icon -->
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52525b" stroke-width="1.8">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+            </div>
+            <div class="card-info-half">
+              <div class="metric-counter">14 / 142</div>
+              <div class="metric-title">Total Attempts Yesterday / Total</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity & Data Health Side Panel -->
+        <div class="activity-panel">
+          <div class="activity-heading">
+            <span>Data Health & Alerts</span>
+            <span style="font-size: 0.74rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;">
+              43 Issues
+            </span>
+          </div>
+
+          <!-- Segmented Switch -->
+          <div class="side-tabs-segmented">
+            <button id="sideTabIssuesBtn" class="side-tab-toggle-btn active" onclick="switchSideTab('issues')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Data Issues (5)</span>
+            </button>
+            <button id="sideTabActivityBtn" class="side-tab-toggle-btn" onclick="switchSideTab('activity')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              <span>Activity (3)</span>
+            </button>
+          </div>
+
+          <!-- Issues Tab Pane -->
+          <div id="sideIssuesPane" class="issue-notification-list">
+            <!-- Issue 1 -->
+            <div class="issue-card-item">
+              <div class="issue-card-top">
+                <div class="issue-card-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Missing APAAR / ABC ID
+                </div>
+                <span class="issue-type-badge">Missing Data</span>
+              </div>
+              <div class="issue-card-desc">
+                14 student records in B.Tech CSE batch are missing ABC_ACCOUNT_ID.
+              </div>
+              <div class="issue-card-footer">
+                <span>Missing: <strong>ABC_ACCOUNT_ID</strong></span>
+                <button class="issue-action-btn" onclick="resolveSingleIssue(this, 'ABC_ACCOUNT_ID', 14)">Resolve</button>
+              </div>
+            </div>
+
+            <!-- Issue 2 -->
+            <div class="issue-card-item">
+              <div class="issue-card-top">
+                <div class="issue-card-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Aadhaar Name Mismatch
+                </div>
+                <span class="issue-type-badge">Verification</span>
+              </div>
+              <div class="issue-card-desc">
+                6 records have character mismatch between AADHAAR_NAME and institutional CNAME.
+              </div>
+              <div class="issue-card-footer">
+                <span>Missing: <strong>AADHAAR_NAME</strong></span>
+                <button class="issue-action-btn" onclick="resolveSingleIssue(this, 'AADHAAR_NAME', 6)">Verify</button>
+              </div>
+            </div>
+
+            <!-- Issue 3 -->
+            <div class="issue-card-item">
+              <div class="issue-card-top">
+                <div class="issue-card-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Missing DOB & Blood Group
+                </div>
+                <span class="issue-type-badge">Missing Data</span>
+              </div>
+              <div class="issue-card-desc">
+                8 records in MBA Finance batch missing mandatory DOB or BLOOD_GROUP entries.
+              </div>
+              <div class="issue-card-footer">
+                <span>Missing: <strong>DOB, BLOOD_GROUP</strong></span>
+                <button class="issue-action-btn" onclick="resolveSingleIssue(this, 'DOB, BLOOD_GROUP', 8)">Fill Data</button>
+              </div>
+            </div>
+
+            <!-- Issue 4 -->
+            <div class="issue-card-item">
+              <div class="issue-card-top">
+                <div class="issue-card-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Student Photo Unattached
+                </div>
+                <span class="issue-type-badge">Media</span>
+              </div>
+              <div class="issue-card-desc">
+                3 student profiles uploaded without passport-size PHOTO attachment.
+              </div>
+              <div class="issue-card-footer">
+                <span>Missing: <strong>PHOTO</strong></span>
+                <button class="issue-action-btn" onclick="resolveSingleIssue(this, 'PHOTO', 3)">Attach</button>
+              </div>
+            </div>
+
+            <!-- Issue 5 -->
+            <div class="issue-card-item">
+              <div class="issue-card-top">
+                <div class="issue-card-title">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  Internal (CE) Marks Incomplete
+                </div>
+                <span class="issue-type-badge">Academics</span>
+              </div>
+              <div class="issue-card-desc">
+                Batch BE-ECE SUB1_CE_MRKS pending faculty internal continuous evaluation upload.
+              </div>
+              <div class="issue-card-footer">
+                <span>Missing: <strong>SUB1_CE_MRKS</strong></span>
+                <button class="issue-action-btn" onclick="resolveSingleIssue(this, 'SUB1_CE_MRKS', 12)">Check</button>
+              </div>
+            </div>
+
+            <button onclick="resolveAllIssues()" style="margin-top: 6px; width: 100%; padding: 8px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; color: #0b2545; font-weight: 600; font-size: 0.78rem; cursor: pointer;">
+              ✓ Auto-Resolve All Issues
+            </button>
+          </div>
+
+          <!-- Activity Tab Pane -->
+          <div id="sideActivityPane" class="activity-stream" style="display: none;">
+            <div class="activity-row">
+              <div class="activity-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              </div>
+              <div class="activity-text">1 photos uploaded in 1951 folder</div>
+            </div>
+
+            <div class="activity-row">
+              <div class="activity-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+              </div>
+              <div class="activity-text" id="recordActivityText">
+                3 records uploaded <button class="verify-link-btn" onclick="verifyRecords()">Verify now</button>
+              </div>
+            </div>
+
+            <div class="activity-row">
+              <div class="activity-icon-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+              </div>
+              <div class="activity-text">DGMST 19 has been set as template by Deept</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem; font-weight: 600;">Upload Academic Records</h3>
+        <button onclick="closeUploadModal()" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">Select Record Type</label>
+          <select style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1;">
+            <option>Degree Certificate</option>
+            <option>Marksheet / Transcripts</option>
+            <option>Diploma Certificate</option>
+          </select>
+        </div>
+        <div class="dropzone" onclick="simulateUpload()">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0b2545" stroke-width="2" style="margin-bottom: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <div style="font-weight: 600; color: #1e293b;">Click to upload CSV or Excel</div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">DigiLocker Template Compliant</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeUploadModal()">Cancel</button>
+        <button class="btn-primary-action" onclick="simulateUpload()">Upload Batch</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleUserMenu() {
+      const menu = document.getElementById('userDropdown');
+      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function openUploadModal() {
+      document.getElementById('uploadModal').style.display = 'flex';
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadModal').style.display = 'none';
+    }
+
+    function simulateUpload() {
+      document.getElementById('awardsLodgedCount').textContent = '25';
+      document.getElementById('degreeCount').textContent = '15';
+      document.getElementById('marksheetCount').textContent = '10';
+      closeUploadModal();
+      alert('Records successfully processed and lodged into the Academic Repository!');
+    }
+
+    function verifyRecords() {
+      document.getElementById('awardsFetchedCount').textContent = '3';
+      document.getElementById('recordActivityText').innerHTML = '3 records verified & approved';
+      alert('Verification complete: 3 student credentials confirmed on DigiLocker.');
+    }
+
+    let remainingIssues = 43;
+
+    function switchSideTab(tab) {
+      const issuesBtn = document.getElementById('sideTabIssuesBtn');
+      const actBtn = document.getElementById('sideTabActivityBtn');
+      const issuesPane = document.getElementById('sideIssuesPane');
+      const actPane = document.getElementById('sideActivityPane');
+
+      if (tab === 'issues') {
+        issuesBtn.classList.add('active');
+        actBtn.classList.remove('active');
+        issuesPane.style.display = 'flex';
+        actPane.style.display = 'none';
+      } else {
+        actBtn.classList.add('active');
+        issuesBtn.classList.remove('active');
+        actPane.style.display = 'flex';
+        issuesPane.style.display = 'none';
+      }
+    }
+
+    function resolveSingleIssue(btn, fieldName, count) {
+      const card = btn.closest('.issue-card-item');
+      if (card) {
+        card.style.opacity = '0.5';
+        card.style.pointerEvents = 'none';
+        btn.textContent = 'Resolved ✓';
+        btn.style.background = '#475569';
+      }
+      remainingIssues = Math.max(0, remainingIssues - count);
+      document.getElementById('totalIssuesCount').textContent = remainingIssues;
+      alert(`Field "${fieldName}" auto-filled and validated for ${count} student records!`);
+    }
+
+    function resolveAllIssues() {
+      const cards = document.querySelectorAll('.issue-card-item');
+      cards.forEach(card => {
+        card.style.display = 'none';
+      });
+      remainingIssues = 0;
+      document.getElementById('totalIssuesCount').textContent = '0';
+      alert('All missing fields and demographic errors successfully resolved across all student batches!');
+    }
+  </script>
+</body>
+</html>

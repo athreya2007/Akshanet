@@ -1,0 +1,412 @@
+/* DigiLocker Student Authentication & Portal Styles */
+.digilocker-page-wrapper {
+  min-height: 100vh;
+  background-color: #f5f4fb;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #111827;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.digilocker-header {
+  height: 70px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.digilocker-brand-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emblem-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emblem-text {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #334155;
+  margin-top: 1px;
+}
+
+.header-divider-v {
+  width: 1px;
+  height: 38px;
+  background-color: #d1d5db;
+}
+
+.digilocker-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.digilocker-cloud-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.35);
+}
+
+.digilocker-text-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #2b3990;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.digilocker-text-sub {
+  font-size: 0.73rem;
+  color: #475569;
+  letter-spacing: 0.01em;
+}
+
+.btn-gateway-return {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0b2545;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-gateway-return:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+/* Center Content & Card */
+.digilocker-body-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.digilocker-login-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 38px 32px;
+  box-shadow: 0 10px 30px rgba(100, 80, 200, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  animation: fadeIn 0.25s ease;
+}
+
+.digilocker-card-title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.digilocker-card-subtitle {
+  font-size: 0.94rem;
+  color: #4b5563;
+  line-height: 1.4;
+  margin-bottom: 24px;
+}
+
+/* Mobile Input Field */
+.digilocker-mobile-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid #8b5cf6;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.digilocker-mobile-input-wrap:focus-within {
+  border-color: #6d28d9;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
+}
+
+.mobile-code-prefix {
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  background-color: #ffffff;
+  user-select: none;
+}
+
+.mobile-input-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #d1d5db;
+}
+
+.mobile-number-field {
+  flex: 1;
+  padding: 12px 14px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: #111827;
+  background-color: transparent;
+}
+
+.mobile-number-field::placeholder {
+  color: #9ca3af;
+}
+
+/* Continue Button */
+.digilocker-btn-continue {
+  width: 100%;
+  padding: 13px 18px;
+  background-color: #a78bfa;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.digilocker-btn-continue.active {
+  background-color: #7c3aed;
+}
+
+.digilocker-btn-continue:hover {
+  background-color: #6d28d9;
+}
+
+.digilocker-terms-text {
+  font-size: 0.84rem;
+  color: #4b5563;
+  text-align: center;
+  line-height: 1.45;
+  margin-bottom: 24px;
+}
+
+.digilocker-terms-text a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.digilocker-terms-text a:hover {
+  text-decoration: underline;
+}
+
+/* Divider OR */
+.digilocker-divider-or {
+  display: flex;
+  align-items: center;
+  margin: 16px 0 22px 0;
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+.digilocker-divider-or::before,
+.digilocker-divider-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.digilocker-divider-or span {
+  padding: 0 12px;
+}
+
+/* QR Code Box */
+.digilocker-qr-card-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.digilocker-qr-card-btn:hover {
+  border-color: #8b5cf6;
+  background-color: #faf5ff;
+}
+
+.qr-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-color: #f3f0ff;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qr-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.qr-card-sub {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+.qr-card-sub a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Quick Demo Bar */
+.digilocker-demo-helper {
+  margin-top: 18px;
+  padding: 10px 14px;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.digilocker-demo-btn {
+  background-color: #0b2545;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* OTP Step Styling */
+.otp-boxes-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 24px 0;
+}
+
+.otp-digit-box {
+  width: 48px;
+  height: 52px;
+  border: 2px solid #8b5cf6;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0b2545;
+  background-color: #ffffff;
+  outline: none;
+}
+
+/* Student Dashboard (When Logged In) */
+.student-portal-viewport {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.student-portal-banner {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 14px;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.student-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.student-avatar-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background-color: #0b2545;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.student-kpi-card {
+  background-color: #ffffff;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.student-kpi-val {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 4px 0;
+}
+
+.student-kpi-lbl {
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 500;
+}
